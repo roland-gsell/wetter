@@ -9,10 +9,12 @@ city = collections.namedtuple('cities',
 
 def main():
     print_header()
-    html = get_html()
+    html = get_search_result_html()
     cities = get_cities(html)
-    for city in cities:
-        print(city.name)
+    for count, city in enumerate(cities):
+        print(count + 1, city.name)
+    city_number = int(input('Which one do you want? '))
+    print(cities[city_number - 1].link)
 
 
 def get_cities(html):
@@ -24,9 +26,8 @@ def get_cities(html):
     return city_list
 
 
-def get_html():
+def get_search_result_html():
     response = requests.get('http://www.wetter.at/locationSearch/3500')
-    print(response)
     return response.text
 
 
